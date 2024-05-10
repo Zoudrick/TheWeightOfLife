@@ -42,11 +42,14 @@ public class JugadorInput : MonoBehaviour
     [Header("Para mover la cámara")]
     public GameObject Foco;
     private bool moviendoC = false;
+
+    public Animator animator;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Suelo"))
         {
             _dashing = false;
+
         }
         
     }
@@ -61,11 +64,32 @@ public class JugadorInput : MonoBehaviour
         {
             spriteRenderer.flipX = true;
             RotarArma.rotable = true;
+            if (velocidad != 0)
+            {
+                if (animator != null)
+                {
+                    animator.SetBool("Running", true);
+                }
+            }
         }
         else if (horizontal > 0)
         {
             spriteRenderer.flipX = false;
             RotarArma.rotable = false;
+            if (velocidad != 0)
+            {
+                if (animator != null)
+                {
+                    animator.SetBool("Running", true);
+                }
+            }
+        }
+        else
+        {
+            if (animator != null)
+            {
+                animator.SetBool("Running", false);
+            }
         }
 
 
@@ -96,10 +120,21 @@ public class JugadorInput : MonoBehaviour
             if (puedeSaltar == false)
             {
                 segundoSalto = false;
+                if (animator != null)
+                {
+                    animator.SetBool("Piso", false);
+                    animator.SetBool("Jumping", false);
+                    animator.SetBool("SegundoSalto", true);
+                }
             }
             else
             {
                 puedeSaltar = false;
+                if (animator != null)
+                {
+                    animator.SetBool("Piso", false);
+                    animator.SetBool("Jumping", true);
+                }
             }
         }
         if(context.canceled && rb.velocity.y > 0f)
@@ -116,11 +151,7 @@ public class JugadorInput : MonoBehaviour
     {
         if (context.performed)
         {
-            orientationY *= -1;
-            rb.gravityScale *= -1;
-            SpritesVic.transform.localScale = new Vector3(1, 1 * orientationY, 1);
-            spriteRenderer.flipY = !spriteRenderer.flipY;
-            StartCoroutine(moverCamarita());
+            GravityAction();
         }
     }
 
@@ -145,6 +176,10 @@ public class JugadorInput : MonoBehaviour
         if (context.performed)
         {
             velocidad = 0;
+            if (animator != null)
+            {
+                animator.SetBool("Running", false);
+            }
         }
         else
         {
@@ -152,10 +187,20 @@ public class JugadorInput : MonoBehaviour
         }
     }
 
-    private IEnumerator moverCamarita()
+    public IEnumerator moverCamarita()
     {
         moviendoC = true;
         yield return new WaitForSeconds(0.5f);
         moviendoC = false;
+    }
+
+    public void GravityAction()
+    {
+        orientationY *= -1;
+        rb.gravityScale *= -1;
+        feet.transform.position += Vector3.down * 1.8f * orientationY;
+        SpritesVic.transform.localScale = new Vector3(1, 1 * orientationY, 1);
+        spriteRenderer.flipY = !spriteRenderer.flipY;
+        StartCoroutine(moverCamarita());
     }
 }

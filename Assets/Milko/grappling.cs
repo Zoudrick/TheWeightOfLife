@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class grappling : MonoBehaviour
 {
- 
     [SerializeField] private float grappleLength;
     [SerializeField] private LayerMask grappleLayer;
     [SerializeField] private LineRenderer rope;
 
     private Vector3 grapplePoint;
     private DistanceJoint2D joint;
-    // Start is called before the first frame update
+
+    public GameObject puntero;
+    public GameObject ancla;
+
     void Start()
     {
         joint = gameObject.GetComponent<DistanceJoint2D>();
@@ -19,16 +22,17 @@ public class grappling : MonoBehaviour
         rope.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void actionGrappling(InputAction.CallbackContext context)
     {
-        if (Input.GetMouseButtonDown(0))
+        if (context.performed)
         {
+            Vector3 directionToPuntero = puntero.transform.position - transform.position;
+            Vector3 raycastDirection = directionToPuntero.normalized * grappleLength;
             RaycastHit2D hit = Physics2D.Raycast(
-            origin: Camera.main.ScreenToWorldPoint(Input.mousePosition),
-            direction: Vector2.zero,
-            distance: Mathf.Infinity,
-            layerMask: grappleLayer);
+                origin: transform.position,
+                direction: raycastDirection,
+                distance: grappleLength,
+                layerMask: grappleLayer);
 
             if (hit.collider != null)
             {
@@ -36,19 +40,22 @@ public class grappling : MonoBehaviour
                 grapplePoint.z = 0;
                 joint.connectedAnchor = grapplePoint;
                 joint.enabled = true;
-                joint.distance = grappleLength;
+                joint.distance = Vector2.Distance(transform.position, puntero.transform.position);
                 rope.SetPosition(0, grapplePoint);
                 rope.SetPosition(1, transform.position);
                 rope.enabled = true;
+                ancla.transform.position = grapplePoint;
             }
         }
-
-        if (Input.GetMouseButtonUp(0))
+        if (context.canceled)
         {
             joint.enabled = false;
             rope.enabled = false;
         }
+    }
 
+    void Update()
+    {
         if (rope.enabled == true)
         {
             rope.SetPosition(1, transform.position);

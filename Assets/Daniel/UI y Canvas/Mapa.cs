@@ -22,11 +22,13 @@ public class Mapa : MonoBehaviour
             MapActive = !MapActive;
             if (MapActive)
             {
+                Time.timeScale = 0;
                 MapaGrande.SetActive(true);
                 HUD.SetActive(false);
             }
             else
             {
+                Time.timeScale = 1;
                 MapaGrande.SetActive(false);
                 HUD.SetActive(true);
             }
