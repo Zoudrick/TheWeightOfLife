@@ -9,6 +9,10 @@ using UnityEngine.UIElements;
 
 public class RotarArma : MonoBehaviour
 {
+
+    public float offset = -30;
+    public float rango = 110;
+
     public JugadorInput input;
 
     public GameObject Victoria1;
@@ -115,8 +119,8 @@ public class RotarArma : MonoBehaviour
         else if (HorizontalAxis > 0)
         {
             izquierda = false;
-            //cuerpo.transform.localEulerAngles = new Vector3(0f, 0f, offset + Mathf.Atan2(HorizontalAxis, VerticalAxis) * -rango / Mathf.PI + 90f);
-            cuerpo.transform.localEulerAngles = new Vector3(0f, 0f, -40 + Mathf.Atan2(HorizontalAxis, VerticalAxis) * -110 / Mathf.PI + 90f);
+            cuerpo.transform.localEulerAngles = new Vector3(0f, 0f, offset + Mathf.Atan2(HorizontalAxis, VerticalAxis) * -rango / Mathf.PI + 90f);
+            //cuerpo.transform.localEulerAngles = new Vector3(0f, 0f, -40 + Mathf.Atan2(HorizontalAxis, VerticalAxis) * -110 / Mathf.PI + 90f);
             falda.transform.localEulerAngles = new Vector3(0f, 0f, -75 + Mathf.Atan2(HorizontalAxis, VerticalAxis) * -15 / Mathf.PI + 90f);
             voltearDerecha();
         }

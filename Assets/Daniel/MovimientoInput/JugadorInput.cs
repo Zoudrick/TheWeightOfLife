@@ -11,6 +11,8 @@ public class JugadorInput : MonoBehaviour
 {
     public Rigidbody2D rb;
 
+    public SpriteRenderer piernasQuietas;
+
     public GameObject SpritesVic;
     public SpriteRenderer spriteRenderer;
     public Bala bala;
@@ -69,6 +71,10 @@ public class JugadorInput : MonoBehaviour
                 if (animator != null)
                 {
                     animator.SetBool("Running", true);
+                    if(piernasQuietas != null)
+                    {
+                        piernasQuietas.enabled = false;
+                    }
                 }
             }
         }
@@ -81,6 +87,10 @@ public class JugadorInput : MonoBehaviour
                 if (animator != null)
                 {
                     animator.SetBool("Running", true);
+                    if (piernasQuietas != null)
+                    {
+                        piernasQuietas.enabled = false;
+                    }
                 }
             }
         }
@@ -89,6 +99,10 @@ public class JugadorInput : MonoBehaviour
             if (animator != null)
             {
                 animator.SetBool("Running", false);
+                if (piernasQuietas != null && puedeSaltar && segundoSalto)
+                {
+                    piernasQuietas.enabled = true;
+                }
             }
         }
 
@@ -119,6 +133,10 @@ public class JugadorInput : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto * orientationY);
             if (puedeSaltar == false)
             {
+                if (piernasQuietas != null)
+                {
+                    piernasQuietas.enabled = false;
+                }
                 segundoSalto = false;
                 if (animator != null)
                 {
@@ -129,12 +147,18 @@ public class JugadorInput : MonoBehaviour
             }
             else
             {
+                if (piernasQuietas != null)
+                {
+                    piernasQuietas.enabled = false;
+                }
                 puedeSaltar = false;
                 if (animator != null)
                 {
+                    
                     animator.SetBool("Piso", false);
                     animator.SetBool("Jumping", true);
                 }
+
             }
         }
         if(context.canceled && rb.velocity.y > 0f)
@@ -179,6 +203,10 @@ public class JugadorInput : MonoBehaviour
             if (animator != null)
             {
                 animator.SetBool("Running", false);
+                if (piernasQuietas != null && puedeSaltar)
+                {
+                    piernasQuietas.enabled = true;
+                }
             }
         }
         else

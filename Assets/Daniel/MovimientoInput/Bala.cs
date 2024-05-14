@@ -18,6 +18,6 @@ public class Bala : MonoBehaviour
     }
     private void Update()
     {
-        transform.position += Farias.normalized * 0.2f;
+        transform.position += Farias.normalized * 0.3f;
     }
 }

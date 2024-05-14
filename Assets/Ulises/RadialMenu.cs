@@ -103,7 +103,7 @@ public class RadialMenu : MonoBehaviour
             VicPosicion = VictoriaGuitarra.transform.position;
             VictoriaGuitarra.SetActive(false);
         }
-        else
+        else if(VictoriaBaquetas != null)
         {
             VicPosicion = VictoriaBaquetas.transform.position;
             Gravedad = baquetas.rb.gravityScale;
@@ -118,6 +118,7 @@ public class RadialMenu : MonoBehaviour
         }
         VictoriaBaquetas.SetActive(true);
         VictoriaBaquetas.transform.position = VicPosicion;
+        VicPosicion.x = PuntoCamara.transform.position.x;
         PuntoCamara.transform.SetParent(VictoriaBaquetas.transform);
     }
     private void cambioGuitarra()
@@ -135,7 +136,7 @@ public class RadialMenu : MonoBehaviour
             VictoriaBaquetas.SetActive(false);
             Gravedad = baquetas.rb.gravityScale;
         }
-        else
+        else if(VictoriaGuitarra != null)
         {
             VicPosicion = VictoriaGuitarra.transform.position;
             Gravedad = guitarra.rb.gravityScale;
@@ -152,6 +153,7 @@ public class RadialMenu : MonoBehaviour
 
         VictoriaGuitarra.SetActive(true);
         VictoriaGuitarra.transform.position = VicPosicion;
+        VicPosicion.x = PuntoCamara.transform.position.x;
         PuntoCamara.transform.SetParent(VictoriaGuitarra.transform);
     }
     private void cambioBajo()
@@ -169,11 +171,12 @@ public class RadialMenu : MonoBehaviour
             VicPosicion = VictoriaBaquetas.transform.position;
             VictoriaBaquetas.SetActive(false);
         }
-        else
+        else if(VictoriaBajo != null)
         {
             VicPosicion = VictoriaBajo.transform.position;
             Gravedad = bajo.rb.gravityScale;
         }
+
         if (Gravedad != bajo.rb.gravityScale)
         {
             bajo.orientationY *= -1;
@@ -182,7 +185,9 @@ public class RadialMenu : MonoBehaviour
             bajo.SpritesVic.transform.localScale = new Vector3(1, 1 * bajo.orientationY, 1);
             bajo.spriteRenderer.flipY = !bajo.spriteRenderer.flipY;
         }
+
         VictoriaBajo.SetActive(true);
+        VicPosicion.x = PuntoCamara.transform.position.x;
         VictoriaBajo.transform.position = VicPosicion;
         PuntoCamara.transform.SetParent(VictoriaBajo.transform);
     }
