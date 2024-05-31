@@ -121,6 +121,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "PedalMas",
+                    "type": "Button",
+                    "id": "3bf7870b-14b0-44e4-a097-709b1cc414de",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PedalMenos",
+                    "type": "Button",
+                    "id": "870a83dc-2aa6-46cc-bb5d-820907022f2d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Guitarrazo",
+                    "type": "Button",
+                    "id": "a0496c9c-1644-4905-a1d2-3e417bca943f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -418,6 +445,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "ApuntarGancho",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1242be58-3366-47b1-9f83-a94340572eef",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PedalMas",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "487cc30f-3cdf-478a-94cd-f29e3dc8305c",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PedalMenos",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f0cb9713-e03f-4068-97be-a01621f06392",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Guitarrazo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

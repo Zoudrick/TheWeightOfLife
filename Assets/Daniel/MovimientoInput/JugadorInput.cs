@@ -9,18 +9,22 @@ using UnityEngine.Rendering;
 
 public class JugadorInput : MonoBehaviour
 {
+    public Guitarrazo guitarrazo;
+
     public Rigidbody2D rb;
 
     public SpriteRenderer piernasQuietas;
 
     public GameObject SpritesVic;
     public SpriteRenderer spriteRenderer;
-    public Bala bala;
+
+    public float tiempoCamara = 0.5f;
+    public float desplazamiento = 10;
 
     //Variables Dash
     [Header("Dash")][SerializeField] private float _dashingTime = 0.2f;
-    [SerializeField] private float _dashForce = 50f;
-    [SerializeField] private float _timeCanDash = 2f;
+    [SerializeField] private float _dashForce = 30f;
+    [SerializeField] private float _timeCanDash = 1.5f;
     private bool _canDash = true;
     private bool _dashing = false;
 
@@ -57,12 +61,14 @@ public class JugadorInput : MonoBehaviour
     }
     void Update()
     {
-        
         //movimiento
-        transform.Translate(Vector3.right * horizontal * velocidad * Time.deltaTime);
+        if (guitarrazo.puedeGolpear)
+        {
+            transform.Translate(Vector3.right * horizontal * velocidad * Time.deltaTime);
+        }
         
         //Espejear Sprite
-        if (horizontal < 0)
+        if (horizontal < 0 && guitarrazo.puedeGolpear)
         {
             spriteRenderer.flipX = true;
             RotarArma.rotable = true;
@@ -78,7 +84,7 @@ public class JugadorInput : MonoBehaviour
                 }
             }
         }
-        else if (horizontal > 0)
+        else if (horizontal > 0 && guitarrazo.puedeGolpear)
         {
             spriteRenderer.flipX = false;
             RotarArma.rotable = false;
@@ -128,7 +134,7 @@ public class JugadorInput : MonoBehaviour
     }
     public void Salto(InputAction.CallbackContext context)
     {
-        if(context.performed && (puedeSaltar || segundoSalto))
+        if(context.performed && (puedeSaltar || segundoSalto) && guitarrazo.puedeGolpear)
         {
             rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto * orientationY);
             if (puedeSaltar == false)

@@ -6,6 +6,20 @@ TagManager:
   tags:
   - Suelo
   - enemy
+  - Chorus
+  - Chorus2
+  - Chorus3
+  - Reverb
+  - Reverb2
+  - Reverb3
+  - Distortion
+  - Overdrive
+  - Simple
+  - GChorus1
+  - GDistortion
+  - GOverdrive
+  - GReverb
+  - GSimple
   layers:
   - Default
   - TransparentFX
@@ -51,4 +65,7 @@ TagManager:
     locked: 0
   - name: Tilemap
     uniqueID: 1748282969
+    locked: 0
+  - name: Iluminacion
+    uniqueID: 880220595
     locked: 0

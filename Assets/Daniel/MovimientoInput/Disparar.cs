@@ -8,13 +8,18 @@ using UnityEngine.InputSystem;
 public class Disparar : MonoBehaviour
 {
     [SerializeField] AudioClip artimonki;
+    [SerializeField] CambiaPedal pedal;
 
-    public Bala bala;
+    public Bala bala1;
+    public Bala bala2;
+    public Bala bala3;
+    public Bala bala4;
+    public Bala bala5;
     public GameObject Victoria1;
     public GameObject miraTemporal;
-    public GameObject mirilla;  
-    public GameObject bala1;
-    public GameObject Auxbala1;
+    public GameObject mirilla;
+    public GameObject[] balas = new GameObject[5]; // Arreglo de balas
+    public GameObject Auxbala; // Arreglo de auxiliares de balas
     public Transform spawner;
     public GameObject centro;
     public GameObject centroTemporal;
@@ -39,7 +44,7 @@ public class Disparar : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if(Victoria1 != null)
+        if (Victoria1 != null)
         {
             if (context.canceled)
             {
@@ -79,16 +84,21 @@ public class Disparar : MonoBehaviour
             direccionDisparo = centroTemporal.transform.position;
             StartCoroutine(Disparando());
             Rodrigo = (direccionDisparo - miraTemporal.transform.position).normalized * Time.deltaTime * fuerza;
-            bala.Farias = Rodrigo;
-            Auxbala1 = Instantiate(bala1, miraTemporal.transform.position, Quaternion.identity);
-            Auxbala1.transform.SetParent(miraTemporal.transform);
+            bala1.Farias = Rodrigo;
+            bala2.Farias = Rodrigo;
+            bala3.Farias = Rodrigo;
+            bala4.Farias = Rodrigo;
+            bala5.Farias = Rodrigo;
+            Auxbala = Instantiate(balas[pedal.iterador], miraTemporal.transform.position, Quaternion.identity);
+            Auxbala.transform.SetParent(miraTemporal.transform);
+            Auxbala.transform.rotation = centro.transform.rotation;
             disparando = true;
             ControladorSonido.Instance.ejecutarSonido(artimonki);
             Destroy(miraTemporal, 2f);
             Destroy(centroTemporal, 2f);
-            if (Auxbala1 != null)
+            if (Auxbala != null)
             {
-                Destroy(Auxbala1, 2f);
+                Destroy(Auxbala, 2f);
             }
         }
     }
@@ -96,11 +106,6 @@ public class Disparar : MonoBehaviour
     {
         posibleDisparo = false;
         yield return new WaitForSeconds(0.2f);
-        posibleDisparo = true;   
-    }
-
-    internal void TomarDaño(float dañoataque)
-    {
-        throw new NotImplementedException();
+        posibleDisparo = true;
     }
 }

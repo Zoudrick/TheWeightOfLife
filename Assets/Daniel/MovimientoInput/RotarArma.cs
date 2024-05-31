@@ -45,7 +45,7 @@ public class RotarArma : MonoBehaviour
     private Vector3 guitarraIzquierda;
     public GameObject Brazo;
     //orientación
-    private bool izquierda;
+    public bool izquierda;
 
     [Header("Cambiar jerarquía")]
     //Sprites para el cambio de jerarquía
@@ -68,8 +68,6 @@ public class RotarArma : MonoBehaviour
     [SerializeField] Animator animPiernas;
     [SerializeField] Animator animFalda;
     [SerializeField] Animator animGuitarra;
-
-
 
     private void Start()
     {

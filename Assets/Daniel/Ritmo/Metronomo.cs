@@ -21,6 +21,7 @@ public class Metronomo : MonoBehaviour
 
     public bool early;
     public bool autorizo;
+    public bool autorizo2;
 
     private bool Golpeo;
     private void Awake()
@@ -42,17 +43,8 @@ public class Metronomo : MonoBehaviour
     {
         Golpeo = false;
         metronomo.PlayOneShot(chord);
-        
-        //Primer Toma
-        transform.localScale = new Vector3(1.3f, 1.3f, 1);
-        //Es posible disparar
-        autorizo=true;
-        yield return new WaitForSeconds(0.1f);
-        autorizo = false;
-        transform.localScale = new Vector3(1, 1, 1);
-        yield return new WaitForSeconds(ritmo - 0.1f);
 
-        //Segunda Toma
+        //Primer Toma
         transform.localScale = new Vector3(1.3f, 1.3f, 1);
         //Es posible disparar
         autorizo = true;
@@ -61,7 +53,20 @@ public class Metronomo : MonoBehaviour
         transform.localScale = new Vector3(1, 1, 1);
         yield return new WaitForSeconds(ritmo - 0.1f);
 
+        //Segunda Toma
+
+        transform.localScale = new Vector3(1.5f, 1.5f, 1);
+        //Es posible disparar
+        autorizo = true;
+        autorizo2 = true;
+        yield return new WaitForSeconds(0.1f);
+        autorizo = false;
+        autorizo2 = false;
+        transform.localScale = new Vector3(1, 1, 1);
+        yield return new WaitForSeconds(ritmo - 0.1f);
+
         //Tercer toma
+
         transform.localScale = new Vector3(1.3f, 1.3f, 1);
         //Es posible disparar
         autorizo = true;
@@ -71,16 +76,19 @@ public class Metronomo : MonoBehaviour
         yield return new WaitForSeconds(ritmo - 0.1f);
 
         //Cuarta toma
-        transform.localScale = new Vector3(1.3f, 1.3f, 1);
+        transform.localScale = new Vector3(1.5f, 1.5f, 1);
         //Es posible disparar
         autorizo = true;
+        autorizo2 = true;
         yield return new WaitForSeconds(0.1f);
         autorizo = false;
+        autorizo2 = false;
         transform.localScale = new Vector3(1, 1, 1);
         yield return new WaitForSeconds(ritmo - 0.1f);
 
 
-        Golpeo =true;
+
+        Golpeo = true;
     }
     private IEnumerator DelayMusica()
     {
