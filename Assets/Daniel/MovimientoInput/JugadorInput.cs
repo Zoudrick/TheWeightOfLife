@@ -10,7 +10,8 @@ using UnityEngine.Rendering;
 public class JugadorInput : MonoBehaviour
 {
     public Guitarrazo guitarrazo;
-
+    public SpriteRenderer guitarrista;
+    [SerializeField] private GameObject ejeGrappling;
     public Rigidbody2D rb;
 
     public SpriteRenderer piernasQuietas;
@@ -20,6 +21,8 @@ public class JugadorInput : MonoBehaviour
 
     public float tiempoCamara = 0.5f;
     public float desplazamiento = 10;
+
+    private float guitarristaCam = 1;
 
     //Variables Dash
     [Header("Dash")][SerializeField] private float _dashingTime = 0.2f;
@@ -124,6 +127,7 @@ public class JugadorInput : MonoBehaviour
             if (orientationY < 0)
             {
                 Foco.transform.position += Vector3.down * 10f * Time.deltaTime;
+
             }
             else
             {
@@ -232,9 +236,13 @@ public class JugadorInput : MonoBehaviour
     {
         orientationY *= -1;
         rb.gravityScale *= -1;
-        feet.transform.position += Vector3.down * 1.8f * orientationY;
         SpritesVic.transform.localScale = new Vector3(1, 1 * orientationY, 1);
-        spriteRenderer.flipY = !spriteRenderer.flipY;
+        feet.transform.position += Vector3.down * 1.8f * orientationY;
         StartCoroutine(moverCamarita());
+        spriteRenderer.flipY = !spriteRenderer.flipY;
+        if(guitarrista != null)
+        {
+            guitarrista.flipY = !guitarrista.flipY;
+        }
     }
 }

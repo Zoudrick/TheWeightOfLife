@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2218499324150987559}
   m_Layer: 0
   m_Name: Reverb
-  m_TagString: Untagged
+  m_TagString: Reverb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 9120974182023242414}
   m_Layer: 0
   m_Name: Reverb (1)
-  m_TagString: Untagged
+  m_TagString: Reverb3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 1483060665188379136}
   m_Layer: 0
   m_Name: Reverb (2)
-  m_TagString: Untagged
+  m_TagString: Reverb2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

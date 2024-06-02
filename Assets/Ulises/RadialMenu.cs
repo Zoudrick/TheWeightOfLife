@@ -11,6 +11,8 @@ public class RadialMenu : MonoBehaviour
     public JugadorInput guitarra;
     public JugadorInput baquetas;
 
+    public SpriteRenderer guitarrista;
+
     public GameObject VictoriaBajo;
     public GameObject VictoriaGuitarra;
     public GameObject VictoriaBaquetas;
@@ -148,8 +150,8 @@ public class RadialMenu : MonoBehaviour
             guitarra.orientationY *= -1;
             guitarra.rb.gravityScale *= -1;
             guitarra.feet.transform.position += Vector3.down * 1.8f * guitarra.orientationY;
-            guitarra.SpritesVic.transform.localScale = new Vector3(1, 1 * guitarra.orientationY, 1);
-            guitarra.spriteRenderer.flipY = !guitarra.spriteRenderer.flipY;
+            guitarra.guitarrista.transform.localScale = new Vector3(1, 1 * guitarra.orientationY, 1);
+            //guitarra.guitarrista.flipY = !guitarra.guitarrista.flipY;
         }
 
         VictoriaGuitarra.SetActive(true);

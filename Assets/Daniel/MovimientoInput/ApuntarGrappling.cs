@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class ApuntarGrappling : MonoBehaviour
 {
     public JugadorInput input;
+    public JugadorInput input2;
 
     public GameObject Victoria1;
 
@@ -33,7 +34,7 @@ public class ApuntarGrappling : MonoBehaviour
     public void Gun(InputAction.CallbackContext context)
     {
         float HorizontalAxis = context.ReadValue<Vector2>().x;
-        float VerticalAxis = context.ReadValue<Vector2>().y * input.orientationY;
+        float VerticalAxis = context.ReadValue<Vector2>().y;
         //Arma
         arma.transform.localEulerAngles = new Vector3(0f, 0f, Mathf.Atan2(HorizontalAxis, VerticalAxis) * -180 / Mathf.PI + 90f);
 
