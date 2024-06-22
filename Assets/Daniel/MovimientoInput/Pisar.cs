@@ -22,6 +22,11 @@ public class Pisar : MonoBehaviour
                 input.piernasQuietas.enabled = true;
             }
         }
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            input.puedeSaltar = true;
+            input.segundoSalto = true;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

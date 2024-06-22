@@ -138,6 +138,8 @@ GameObject:
   - component: {fileID: 17561386}
   - component: {fileID: 17561387}
   - component: {fileID: 17561388}
+  - component: {fileID: 17561389}
+  - component: {fileID: 17561390}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -277,6 +279,30 @@ MonoBehaviour:
   slider: {fileID: 1386904631}
   sliderValue: 0
   panelBrillo: {fileID: 141998502}
+--- !u!114 &17561389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17561381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: facaff371429f0144a12e7e3431c725a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &17561390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17561381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6116d0d0edd5274aba71c81868466a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &32492451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,9 +1379,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 17561387}
-        m_TargetAssemblyTypeName: menuInicial, Assembly-CSharp
-        m_MethodName: Jugar
+      - m_Target: {fileID: 17561390}
+        m_TargetAssemblyTypeName: MenuChafa, Assembly-CSharp
+        m_MethodName: Escenota
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1781,14 +1807,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 0.50377357, b: 0.95578176, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8213dc787408fda478f1467b98a8fbe1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b9c769d86b40ee04e84cf508bd458bcb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3790,11 +3816,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'GAME DESING
+  m_text: 'GAME DESIGN
 
     DANIEL MARISCAL
 
-    RODRIGO RINCON'
+    RODRIGO RINCON
+
+    EMMANUEL LOPEZ'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9f60aba6cf90dcf4bbdf2ba6a1973d02, type: 2}
   m_sharedMaterial: {fileID: 373763233293411838, guid: 9f60aba6cf90dcf4bbdf2ba6a1973d02, type: 2}
@@ -6251,7 +6279,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "MUSIC \nEMILIO ACOSTA"
+  m_text: 'MUSICA
+
+    EMILIO ACOSTA'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9f60aba6cf90dcf4bbdf2ba6a1973d02, type: 2}
   m_sharedMaterial: {fileID: 373763233293411838, guid: 9f60aba6cf90dcf4bbdf2ba6a1973d02, type: 2}
@@ -7668,7 +7698,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "ARTIST\nFERNANDA GOMEZ\nIKER LOZOYA\nEMANUEL LOPEZ\nDIEGO ARANDA\nCAROLINA
+  m_text: "ARTISTISTAS\nFERNANDA GOMEZ\nIKER LOZOYA\nEMANUEL LOPEZ\nDIEGO ARANDA\nCAROLINA
     REYES\nJULIAN CASTA\xD1EDA\nSANTIAGO TELLO"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9f60aba6cf90dcf4bbdf2ba6a1973d02, type: 2}
@@ -7828,7 +7858,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1972381995}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 17561390}
+        m_TargetAssemblyTypeName: MenuChafa, Assembly-CSharp
+        m_MethodName: Escenota
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1972381995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8104,7 +8146,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 59c4ff75dd5de8349ae09ce4b6d40fdf, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 3969ba41124ec1f4db2af5fa6e5823d6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2111d5bbae002fe45b23e574b4084261, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

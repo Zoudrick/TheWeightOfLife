@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PedalesHUD : MonoBehaviour
 {
+    public SistemaGuardado sistemaGuardado;
+
     [SerializeField] GameObject pedalReverb; // La imagen en el HUD que quieres cambiar
     [SerializeField] GameObject pedalOverdrive;
     [SerializeField] GameObject pedalChorus;
@@ -21,29 +23,35 @@ public class PedalesHUD : MonoBehaviour
     }
     void Update()
     {
-            if(cambiaPedal.iterador == 1)
+            if(sistemaGuardado.partida.iterador == 1)
             {
                 pedalReverb.SetActive(true);
                 pedalOverdrive.SetActive(false);
+                pedalChorus.SetActive(false);
+                pedalDistortion.SetActive(false);
             }
-            else if(cambiaPedal.iterador == 2)
+            else if(sistemaGuardado.partida.iterador == 2)
             {
                 pedalReverb.SetActive(false);
                 pedalOverdrive.SetActive(true);
                 pedalChorus.SetActive(false);
-            }
-            else if (cambiaPedal.iterador == 3)
-            {
                 pedalDistortion.SetActive(false);
+            }
+            else if (sistemaGuardado.partida.iterador == 3)
+            {
+                pedalReverb.SetActive(false);
                 pedalOverdrive.SetActive(false);
                 pedalChorus.SetActive(true);
+                pedalDistortion.SetActive(false);
             }
-            else if (cambiaPedal.iterador == 4)
+            else if (sistemaGuardado.partida.iterador == 4)
             {
-                pedalDistortion.SetActive(true);
+                pedalReverb.SetActive(false);
+                pedalOverdrive.SetActive(false);
                 pedalChorus.SetActive(false);
+                pedalDistortion.SetActive(true);
             }
-            else if (cambiaPedal.iterador == 0)
+            else if (sistemaGuardado.partida.iterador == 0)
             {
                 pedalChorus.SetActive(false);
                 pedalDistortion.SetActive(false);

@@ -22,7 +22,7 @@ public class RotarArma : MonoBehaviour
     static public bool rotable = false;
     private bool quieto = false;
     public float returnTime = 180;
-    Vector3 currentRotation;
+    public Vector3 currentRotation;
     static public Vector2 DireDisparo;
 
     [Header("Puntos de rotación")]
@@ -41,7 +41,7 @@ public class RotarArma : MonoBehaviour
     private Vector3 faldaDerecha;
     private Vector3 faldaIzquierda;
     public GameObject Guitarra;
-    private Vector3 guitarraDerecha;
+    public Vector3 guitarraDerecha;
     private Vector3 guitarraIzquierda;
     public GameObject Brazo;
     //orientación
@@ -105,7 +105,7 @@ public class RotarArma : MonoBehaviour
         //Arma
         arma.transform.localEulerAngles = new Vector3(0f, 0f, Mathf.Atan2(HorizontalAxis, VerticalAxis) * -180 / Mathf.PI + 90f);
 
-        if(HorizontalAxis < 0)
+        if(HorizontalAxis < -0.1f)
         {
             //cuerpo.transform.localEulerAngles = new Vector3(0f, 0f, -1 * (offset + Mathf.Atan2(HorizontalAxis, VerticalAxis) * rango / Mathf.PI + 90f));
             cuerpo.transform.localEulerAngles = new Vector3(0f, 0f, -1 * (-30 + Mathf.Atan2(HorizontalAxis, VerticalAxis) * 110/ Mathf.PI + 90f));
@@ -114,7 +114,7 @@ public class RotarArma : MonoBehaviour
             izquierda = true;
             Guitarra.transform.localScale = guitarraIzquierda;
         }
-        else if (HorizontalAxis > 0)
+        else if (HorizontalAxis > 0.1f)
         {
             izquierda = false;
             cuerpo.transform.localEulerAngles = new Vector3(0f, 0f, offset + Mathf.Atan2(HorizontalAxis, VerticalAxis) * -rango / Mathf.PI + 90f);
@@ -125,7 +125,7 @@ public class RotarArma : MonoBehaviour
 
         currentRotation = arma.transform.localEulerAngles;
 
-        if (HorizontalAxis == 0 && VerticalAxis == 0)
+        if (HorizontalAxis > -0.1 && HorizontalAxis < 0.1 && VerticalAxis > -0.1 && VerticalAxis < 0.1)
         {
             quieto = true;
 
@@ -156,7 +156,7 @@ public class RotarArma : MonoBehaviour
         }
     }
 
-    private void voltearIzquierda()
+    public void voltearIzquierda()
     {
         if(Victoria1 != null)
         {
@@ -167,15 +167,16 @@ public class RotarArma : MonoBehaviour
             animFalda.SetBool("izquierda", true);
             animGuitarra.SetBool("izquierda", true);
         }
-        spriteCabello.sortingOrder = 30;
+        
         spriteCara.sortingOrder = 24;
         spriteTorzo.sortingOrder = 20;
         spriteGuitarra.sortingOrder = 18;
+        spriteCabello.sortingOrder = 30;
         brazoDerecha.enabled = false;
         brazoIzquierda.enabled = true;
         brazoIzquierda2.enabled = true;
     }
-    private void voltearDerecha()
+    public void voltearDerecha()
     {
         if(Victoria1 != null)
         {

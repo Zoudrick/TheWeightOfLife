@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 
 public class Disparar : MonoBehaviour
 {
+    public SistemaGuardado sistemaGuardado;
+    
     [SerializeField] AudioClip artimonki;
     [SerializeField] CambiaPedal pedal;
 
@@ -89,7 +91,7 @@ public class Disparar : MonoBehaviour
             bala3.Farias = Rodrigo;
             bala4.Farias = Rodrigo;
             bala5.Farias = Rodrigo;
-            Auxbala = Instantiate(balas[pedal.iterador], miraTemporal.transform.position, Quaternion.identity);
+            Auxbala = Instantiate(balas[sistemaGuardado.partida.iterador], miraTemporal.transform.position, Quaternion.identity);
             Auxbala.transform.SetParent(miraTemporal.transform);
             Auxbala.transform.rotation = centro.transform.rotation;
             disparando = true;

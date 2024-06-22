@@ -4,21 +4,37 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public bool IsImmune { get; private set; } = false;
+    public float fuerzaPutazo = 85;
+
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("enemy"))
+        if (other.gameObject.CompareTag("enemy") && !IsImmune)
         {
-            Rigidbody2D rbEnemigo = other.gameObject.GetComponent<Rigidbody2D>();
-            Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+            GameManager.Instance.perderVida();
 
-            if (rb != null && rbEnemigo != null)
+            Rigidbody2D playerRigidbody = GetComponent<Rigidbody2D>();
+
+            if (playerRigidbody != null)
             {
-                Vector3 putazo = gameObject.transform.position - other.transform.position;
+                Vector2 collisionDirection = (transform.position - other.transform.position).normalized;
 
-                putazo.Normalize();
-                rb.velocity = putazo * 13;
-                GameManager.Instance.perderVida();
+                playerRigidbody.AddForce(collisionDirection * fuerzaPutazo * fuerzaPutazo);
             }
+
+            StartImmunity();
         }
+    }
+
+    public void StartImmunity()
+    {
+        StartCoroutine(ImmunityCoroutine());
+    }
+
+    private IEnumerator ImmunityCoroutine()
+    {
+        IsImmune = true;
+        yield return new WaitForSeconds(1.5f);
+        IsImmune = false;
     }
 }

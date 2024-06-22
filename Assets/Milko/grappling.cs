@@ -5,9 +5,13 @@ using UnityEngine.InputSystem;
 
 public class grappling : MonoBehaviour
 {
+    public SistemaGuardado sistemaGuardado;
+    public JugadorInput jugador;
+    public Animator anim;
+
     [SerializeField] private float grappleLength;
     [SerializeField] private LayerMask grappleLayer;
-    [SerializeField] private LineRenderer rope;
+    [SerializeField] public LineRenderer rope;
 
     private Vector3 grapplePoint;
     private DistanceJoint2D joint;
@@ -24,7 +28,7 @@ public class grappling : MonoBehaviour
 
     public void actionGrappling(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && sistemaGuardado.partida.Grappling && jugador.puedeSaltar == false)
         {
             Vector3 directionToPuntero = puntero.transform.position - transform.position;
             Vector3 raycastDirection = directionToPuntero.normalized * grappleLength;
@@ -36,6 +40,7 @@ public class grappling : MonoBehaviour
 
             if (hit.collider != null)
             {
+                anim.SetBool("Grappling", true);
                 grapplePoint = hit.point;
                 grapplePoint.z = 0;
                 joint.connectedAnchor = grapplePoint;
@@ -51,6 +56,7 @@ public class grappling : MonoBehaviour
         {
             joint.enabled = false;
             rope.enabled = false;
+            anim.SetBool("Grappling", false);
         }
     }
 

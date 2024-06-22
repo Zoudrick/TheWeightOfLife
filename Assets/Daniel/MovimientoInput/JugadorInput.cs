@@ -2,13 +2,15 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 public class JugadorInput : MonoBehaviour
 {
+    public SistemaGuardado sistemaGuardado;
+    public grappling grappling;
+
     public Guitarrazo guitarrazo;
     public SpriteRenderer guitarrista;
     [SerializeField] private GameObject ejeGrappling;
@@ -19,15 +21,17 @@ public class JugadorInput : MonoBehaviour
     public GameObject SpritesVic;
     public SpriteRenderer spriteRenderer;
 
+    private GameObject gravitoso;
+
     public float tiempoCamara = 0.5f;
     public float desplazamiento = 10;
 
     private float guitarristaCam = 1;
 
     //Variables Dash
-    [Header("Dash")][SerializeField] private float _dashingTime = 0.2f;
-    [SerializeField] private float _dashForce = 30f;
-    [SerializeField] private float _timeCanDash = 1.5f;
+    [Header("Dash")][SerializeField] private float _dashingTime = 0.4f;
+    [SerializeField] private float _dashForce = 15f;
+    [SerializeField] private float _timeCanDash = 1f;
     private bool _canDash = true;
     private bool _dashing = false;
 
@@ -58,9 +62,19 @@ public class JugadorInput : MonoBehaviour
         if (collision.gameObject.CompareTag("Suelo"))
         {
             _dashing = false;
-
         }
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Gravedad"))
+        {
+            GravityAction();
+            gravitoso = collision.gameObject;
+            gravitoso.SetActive(false);
+            StartCoroutine(ActivarGravitoso());
+        }
     }
     void Update()
     {
@@ -114,8 +128,15 @@ public class JugadorInput : MonoBehaviour
                 }
             }
         }
-
-
+        if(grappling != null)
+        if (grappling.rope.enabled == true)
+        {
+            velocidad = 0;
+        }
+        else
+        {
+            velocidad = 6;
+        }
         //Dash
         if (_dashing)
         {
@@ -185,13 +206,14 @@ public class JugadorInput : MonoBehaviour
     {
         if (context.performed)
         {
-            GravityAction();
+            Debug.Log("JAsjasj");
+            //GravityAction();
         }
     }
 
     public void Dashing(InputAction.CallbackContext context)
     {
-        if (context.performed && _canDash)
+        if (context.performed && _canDash && sistemaGuardado.partida.Dash)
         {
             StartCoroutine(ActionDash());
         }
@@ -232,13 +254,19 @@ public class JugadorInput : MonoBehaviour
         moviendoC = false;
     }
 
+    public IEnumerator ActivarGravitoso()
+    {
+        yield return new WaitForSeconds(2.5f);
+        gravitoso.SetActive(true);
+    }
+
     public void GravityAction()
     {
         orientationY *= -1;
         rb.gravityScale *= -1;
         SpritesVic.transform.localScale = new Vector3(1, 1 * orientationY, 1);
         feet.transform.position += Vector3.down * 1.8f * orientationY;
-        StartCoroutine(moverCamarita());
+        //StartCoroutine(moverCamarita());
         spriteRenderer.flipY = !spriteRenderer.flipY;
         if(guitarrista != null)
         {

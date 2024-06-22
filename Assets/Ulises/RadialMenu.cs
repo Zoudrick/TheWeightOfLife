@@ -7,6 +7,9 @@ using UnityEngine.Windows;
 
 public class RadialMenu : MonoBehaviour
 {
+    public RotarArma arma;
+    public SistemaGuardado sistemaGuardado;
+
     public JugadorInput bajo;
     public JugadorInput guitarra;
     public JugadorInput baquetas;
@@ -41,7 +44,7 @@ public class RadialMenu : MonoBehaviour
 
     public void ActivarHud(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && sistemaGuardado.partida.Guitarra)
         {
             isRadialMenuActive = !isRadialMenuActive;
             if (isRadialMenuActive)
@@ -53,7 +56,19 @@ public class RadialMenu : MonoBehaviour
                 RadialMenuRoot.SetActive(false);
                 if (targetAngle == 0)
                 {
-                    //cambioBaquetas();
+                    
+                    cambioBajo();
+                    ultimaEleccion = 0;
+                    Debug.Log(ultimaEleccion);
+
+                    if (arma.izquierda)
+                    {
+                        arma.voltearIzquierda();
+                    }
+                    else
+                    {
+                        arma.voltearDerecha();
+                    }
                 }
                 else if(targetAngle == 120 && targetAngle != ultimaEleccion)
                 {
@@ -63,9 +78,7 @@ public class RadialMenu : MonoBehaviour
                 }
                 else if(targetAngle == 240 && targetAngle != ultimaEleccion)
                 {
-                    cambioBajo();
-                    ultimaEleccion = 240;
-                    Debug.Log(ultimaEleccion);
+                    //cambioBaquetas();
                 }
             }
         }
@@ -73,7 +86,7 @@ public class RadialMenu : MonoBehaviour
 
     public void SeleccionarArma(InputAction.CallbackContext context)
     {
-        if (isRadialMenuActive)
+        if (isRadialMenuActive && sistemaGuardado.partida.Guitarra)
         {
             Vector2 input = context.ReadValue<Vector2>();
             x = input.x;

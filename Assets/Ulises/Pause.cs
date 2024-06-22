@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Pause : MonoBehaviour
 {
@@ -31,5 +32,18 @@ public class Pause : MonoBehaviour
         PausePanel.SetActive(false);
         pausado = false;
         Time.timeScale = 1;
+
+
+        SceneManager.LoadScene("Level2");
+    }
+
+    public void Menu()
+    {
+        SceneManager.LoadScene("MainMenu");  
+    }
+
+    public void Salir()
+    {
+        Application.Quit();
     }
 }

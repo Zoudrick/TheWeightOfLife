@@ -20,6 +20,14 @@ TagManager:
   - GOverdrive
   - GReverb
   - GSimple
+  - ActDash
+  - ActGuitarra
+  - ActPedal
+  - ActPedal2
+  - ActPedal3
+  - ActPedal4
+  - ActMicrofono
+  - Gravedad
   layers:
   - Default
   - TransparentFX

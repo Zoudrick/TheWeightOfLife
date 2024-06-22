@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Guitarrazo : MonoBehaviour
 {
+    public SistemaGuardado sistemaGuardado;
     [SerializeField] AudioClip artimonki;
     public GameObject[] putazos = new GameObject[5];
     public CambiaPedal pedal;
@@ -49,7 +50,7 @@ public class Guitarrazo : MonoBehaviour
         puedeGolpear = false;
         ControladorSonido.Instance.ejecutarSonido(artimonki);
         yield return new WaitForSeconds(0.05f);
-        putazo = Instantiate(putazos[pedal.iterador]);
+        putazo = Instantiate(putazos[sistemaGuardado.partida.iterador]);
         putazo.transform.SetParent(putazo.transform, Victoria);
         if (RotarArma.rotable)
         {
@@ -69,5 +70,4 @@ public class Guitarrazo : MonoBehaviour
         animator.SetBool("Golpeando", false);
         puedeGolpear = true;
     }
-
 }

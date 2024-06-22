@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    private int vidas = 3;
+    [SerializeField] SistemaGuardado sistema_guardado;
 
     public HUD hud;
 
@@ -25,22 +25,22 @@ public class GameManager : MonoBehaviour
 
     public void perderVida()
     {
-        vidas -= 1;
-      if(vidas == 0)
+        sistema_guardado.partida.vidas -= 1;
+      if(sistema_guardado.partida.vidas == 0)
         {
             SceneManager.LoadScene(0);
         }
       
-       hud.desactivarVida(vidas);
+       hud.desactivarVida(sistema_guardado.partida.vidas);
     }
     public bool recuperarVida()
     {
-        if(vidas == 3)
+        if(sistema_guardado.partida.vidas == 3)
         {
             return false;
         }
-        hud.activarVida(vidas);
-        vidas += 1;
+        hud.activarVida(sistema_guardado.partida.vidas);
+        sistema_guardado.partida.vidas += 1;
         return true;
     }
 }

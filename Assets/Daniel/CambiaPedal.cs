@@ -6,20 +6,18 @@ using UnityEngine.InputSystem;
 
 public class CambiaPedal : MonoBehaviour
 {
-    public int iterador = 0;
-    public int maximo = 4;
-    public int minimo = 0;
+    public SistemaGuardado sistemaGuardado;
     public void CambiarMas(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            if (iterador < maximo)
+            if (sistemaGuardado.partida.iterador < sistemaGuardado.partida.maximo)
             {
-                iterador++;
+                sistemaGuardado.partida.iterador++;
             }
             else
             {
-                iterador = minimo;
+                sistemaGuardado.partida.iterador = sistemaGuardado.partida.minimo;
             }
         }
     }
@@ -27,13 +25,13 @@ public class CambiaPedal : MonoBehaviour
     {
         if (context.performed)
         {
-            if (iterador > minimo)
+            if (sistemaGuardado.partida.iterador > sistemaGuardado.partida.minimo)
             {
-                iterador--;
+                sistemaGuardado.partida.iterador--;
             }
             else
             {
-                iterador = maximo;
+                sistemaGuardado.partida.iterador = sistemaGuardado.partida.maximo;
             }
         }
     }
