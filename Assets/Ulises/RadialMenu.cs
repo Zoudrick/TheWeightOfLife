@@ -25,138 +25,62 @@ public class RadialMenu : MonoBehaviour
     public Transform selectObject;
     private Vector3 VicPosicion;
 
-    public GameObject RadialMenuRoot;
-    public float angleOffset = 30;
-    float targetAngle = 0;
-
     private float Gravedad = 1;
 
-    float x = 0;
-    float y = 0;
+    private bool bajoActivo;
 
-    private int ultimaEleccion = 240;
+    private bool puedeCambiar = true;
 
-    private bool isRadialMenuActive;
+    public GameObject guitarraUI;
+    public GameObject bajoUI;
     void Start()
     {
-        isRadialMenuActive = false;
+        bajoActivo = true;
+        bajoUI.SetActive(true);
+        guitarraUI.SetActive(false);
     }
 
-    public void ActivarHud(InputAction.CallbackContext context)
+    public void RotarArma(InputAction.CallbackContext context)
     {
-        if (context.performed && sistemaGuardado.partida.Guitarra)
+        if (bajoActivo && sistemaGuardado.partida.Guitarra && puedeCambiar)
         {
-            isRadialMenuActive = !isRadialMenuActive;
-            if (isRadialMenuActive)
-            {
-                RadialMenuRoot.SetActive(true);
-            }
-            else
-            {
-                RadialMenuRoot.SetActive(false);
-                if (targetAngle == 0)
-                {
-                    
-                    cambioBajo();
-                    ultimaEleccion = 0;
-                    Debug.Log(ultimaEleccion);
-
-                    if (arma.izquierda)
-                    {
-                        arma.voltearIzquierda();
-                    }
-                    else
-                    {
-                        arma.voltearDerecha();
-                    }
-                }
-                else if(targetAngle == 120 && targetAngle != ultimaEleccion)
-                {
-                    cambioGuitarra();
-                    ultimaEleccion = 120;
-                    Debug.Log(ultimaEleccion);
-                }
-                else if(targetAngle == 240 && targetAngle != ultimaEleccion)
-                {
-                    //cambioBaquetas();
-                }
-            }
+            cambioGuitarra();
+        }
+        else if(bajoActivo && sistemaGuardado.partida.Guitarra == false){
+            Debug.Log("No se puede hacer nada, carnal");
+        }
+        else if(bajoActivo == false && puedeCambiar)
+        {
+            cambioBajo();
         }
     }
-
-    public void SeleccionarArma(InputAction.CallbackContext context)
-    {
-        if (isRadialMenuActive && sistemaGuardado.partida.Guitarra)
-        {
-            Vector2 input = context.ReadValue<Vector2>();
-            x = input.x;
-            y = input.y;
-
-            float angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg;
-
-            if (angle < 0)
-            {
-                angle += 360;
-            }
-
-            angle = (angle + angleOffset) % 360;
-
-            int sectionAngle = 120;
-            int selectedSection = Mathf.FloorToInt(angle / sectionAngle);
-
-            targetAngle = selectedSection * sectionAngle;
-            selectObject.eulerAngles = new Vector3(0, 0, targetAngle);
-            Debug.Log(targetAngle);
-        }
-    }
-    /*private void cambioBaquetas()
-    {
-        PuntoCamara.transform.SetParent(null);
-        if (VictoriaBajo != null)
-        {
-            Gravedad = bajo.rb.gravityScale;
-            VicPosicion = VictoriaBajo.transform.position;
-            VictoriaBajo.SetActive(false);
-        }
-        else if (VictoriaGuitarra != null)
-        {
-            Gravedad = guitarra.rb.gravityScale;
-            VicPosicion = VictoriaGuitarra.transform.position;
-            VictoriaGuitarra.SetActive(false);
-        }
-        if(Gravedad != baquetas.rb.gravityScale)
-        {
-            baquetas.orientationY *= -1;
-            baquetas.rb.gravityScale *= -1;
-            baquetas.feet.transform.position += Vector3.down * 1.8f * baquetas.orientationY;
-            baquetas.SpritesVic.transform.localScale = new Vector3(1, 1 * baquetas.orientationY, 1);
-            baquetas.spriteRenderer.flipY = !baquetas.spriteRenderer.flipY;
-        }
-        VictoriaBaquetas.SetActive(true);
-        VictoriaBaquetas.transform.position = VicPosicion;
-        VicPosicion.x = PuntoCamara.transform.position.x;
-        PuntoCamara.transform.SetParent(VictoriaBaquetas.transform);
-    }*/
     private void cambioGuitarra()
     {
+        bajoActivo = false;
         PuntoCamara.transform.SetParent(null);
+        StartCoroutine(ActivarGuitarra());
+        guitarraUI.SetActive(true);
+        bajoUI.SetActive(false);
+    }
+    private void cambioBajo()
+    {
+        bajoActivo = true;
+        PuntoCamara.transform.SetParent(null);
+        StartCoroutine(ActivarBajo());
+        guitarraUI.SetActive(false);
+        bajoUI.SetActive(true);
+    }
+
+    public IEnumerator ActivarGuitarra()
+    {
+        puedeCambiar = false;
+        yield return new WaitForSeconds(0.1f);
         if (VictoriaBajo != null)
         {
             Gravedad = bajo.rb.gravityScale;
             VicPosicion = VictoriaBajo.transform.position;
             VictoriaBajo.SetActive(false);
         }
-        /*else if (VictoriaBaquetas != null)
-        {
-            VicPosicion = VictoriaBaquetas.transform.position;
-            VictoriaBaquetas.SetActive(false);
-            Gravedad = baquetas.rb.gravityScale;
-        }*/
-        /*else if(VictoriaGuitarra != null)
-        {
-            VicPosicion = VictoriaGuitarra.transform.position;
-            Gravedad = guitarra.rb.gravityScale;
-        }*/
 
         if (Gravedad != guitarra.rb.gravityScale)
         {
@@ -164,16 +88,23 @@ public class RadialMenu : MonoBehaviour
             guitarra.rb.gravityScale *= -1;
             guitarra.feet.transform.position += Vector3.down * 1.8f * guitarra.orientationY;
             guitarra.guitarrista.transform.localScale = new Vector3(1, 1 * guitarra.orientationY, 1);
-            //guitarra.guitarrista.flipY = !guitarra.guitarrista.flipY;
         }
 
+        yield return new WaitForSeconds(0.1f);
         VictoriaGuitarra.SetActive(true);
         VictoriaGuitarra.transform.position = VicPosicion;
         VicPosicion.x = PuntoCamara.transform.position.x;
         PuntoCamara.transform.SetParent(VictoriaGuitarra.transform);
+        Debug.Log("Sí se hizo");
+        yield return new WaitForSeconds(1.5f);
+        puedeCambiar = true;
     }
-    private void cambioBajo()
+
+    public IEnumerator ActivarBajo()
     {
+        puedeCambiar = false;
+        yield return new WaitForSeconds(0.1f);
+        bajoActivo = true;
         PuntoCamara.transform.SetParent(null);
         if (VictoriaGuitarra != null)
         {
@@ -181,20 +112,6 @@ public class RadialMenu : MonoBehaviour
             VicPosicion = VictoriaGuitarra.transform.position;
             VictoriaGuitarra.SetActive(false);
         }
-        /*else if (VictoriaBaquetas != null)
-        {
-            Gravedad = baquetas.rb.gravityScale;
-            VicPosicion = VictoriaBaquetas.transform.position;
-            VictoriaBaquetas.SetActive(false);
-        }*/
-        /*else if(VictoriaBajo != null)
-        {
-            Gravedad = bajo.rb.gravityScale;
-            VicPosicion = VictoriaBajo.transform.position;
-            Gravedad = bajo.rb.gravityScale;
-            Debug.Log("Es nulo");
-        }*/
-
         if (Gravedad != bajo.rb.gravityScale)
         {
             bajo.orientationY *= -1;
@@ -208,5 +125,10 @@ public class RadialMenu : MonoBehaviour
         VicPosicion.x = PuntoCamara.transform.position.x;
         VictoriaBajo.transform.position = VicPosicion;
         PuntoCamara.transform.SetParent(VictoriaBajo.transform);
+        yield return new WaitForSeconds(0.1f);
+        PuntoCamara.transform.position = VictoriaBajo.transform.position;
+        Debug.Log("Sí se hizo");
+        yield return new WaitForSeconds(1.5f);
+        puedeCambiar = true;
     }
 }
