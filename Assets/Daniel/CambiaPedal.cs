@@ -7,10 +7,12 @@ using UnityEngine.InputSystem;
 public class CambiaPedal : MonoBehaviour
 {
     public SistemaGuardado sistemaGuardado;
+    [SerializeField] private AudioClip pedal;
     public void CambiarMas(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
+            ControladorSonido.Instance.ejecutarSonido(pedal);
             if (sistemaGuardado.partida.iterador < sistemaGuardado.partida.maximo)
             {
                 sistemaGuardado.partida.iterador++;
@@ -25,6 +27,7 @@ public class CambiaPedal : MonoBehaviour
     {
         if (context.performed)
         {
+            ControladorSonido.Instance.ejecutarSonido(pedal);
             if (sistemaGuardado.partida.iterador > sistemaGuardado.partida.minimo)
             {
                 sistemaGuardado.partida.iterador--;

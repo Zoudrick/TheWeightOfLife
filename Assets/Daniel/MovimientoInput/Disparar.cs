@@ -8,9 +8,14 @@ using UnityEngine.InputSystem;
 public class Disparar : MonoBehaviour
 {
     public SistemaGuardado sistemaGuardado;
-    
-    [SerializeField] AudioClip artimonki;
     [SerializeField] CambiaPedal pedal;
+
+    public AudioClip[,] NotasBajo = new AudioClip[5, 4];
+    public AudioClip[] Clean = new AudioClip[4];
+    public AudioClip[] Reverb = new AudioClip[4];
+    public AudioClip[] OverDrive = new AudioClip[4];
+    public AudioClip[] Chorus = new AudioClip[4];
+    public AudioClip[] Distortion = new AudioClip[4];
 
     public Bala bala1;
     public Bala bala2;
@@ -36,6 +41,33 @@ public class Disparar : MonoBehaviour
 
     private bool ordenDisparo = false;
 
+    private void Start()
+    {
+        NotasBajo[0, 0] = Clean[0];
+        NotasBajo[0, 1] = Clean[1];
+        NotasBajo[0, 2] = Clean[2];
+        NotasBajo[0, 3] = Clean[3];
+
+        NotasBajo[1, 0] = Reverb[0];
+        NotasBajo[1, 1] = Reverb[1];
+        NotasBajo[1, 2] = Reverb[2];
+        NotasBajo[1, 3] = Reverb[3];
+
+        NotasBajo[2, 0] = OverDrive[0];
+        NotasBajo[2, 1] = OverDrive[1];
+        NotasBajo[2, 2] = OverDrive[2];
+        NotasBajo[2, 3] = OverDrive[3];
+
+        NotasBajo[3, 0] = Chorus[0];
+        NotasBajo[3, 1] = Chorus[1];
+        NotasBajo[3, 2] = Chorus[2];
+        NotasBajo[3, 3] = Chorus[3];
+
+        NotasBajo[4, 0] = Distortion[0];
+        NotasBajo[4, 1] = Distortion[1];
+        NotasBajo[4, 2] = Distortion[2];
+        NotasBajo[4, 3] = Distortion[3];
+    }
     private void Update()
     {
         if (ordenDisparo)
@@ -72,6 +104,7 @@ public class Disparar : MonoBehaviour
                 {
                     ordenDisparo = false;
                     Debug.Log("Destiempo");
+                    disparoMiado();
                 }
             }
         }
@@ -91,23 +124,66 @@ public class Disparar : MonoBehaviour
             bala3.Farias = Rodrigo;
             bala4.Farias = Rodrigo;
             bala5.Farias = Rodrigo;
+            bala1.velocidad = 0.3f;
+            bala2.velocidad = 0.3f;
+            bala3.velocidad = 0.3f;
+            bala4.velocidad = 0.3f;
+            bala5.velocidad = 0.3f;
             Auxbala = Instantiate(balas[sistemaGuardado.partida.iterador], miraTemporal.transform.position, Quaternion.identity);
             Auxbala.transform.SetParent(miraTemporal.transform);
             Auxbala.transform.rotation = centro.transform.rotation;
             disparando = true;
-            ControladorSonido.Instance.ejecutarSonido(artimonki);
+
+            SonidosBajo.Instance.ejecutarSonido(NotasBajo[sistemaGuardado.partida.iterador, metronomo.Acorde]);
+
             Destroy(miraTemporal, 2f);
             Destroy(centroTemporal, 2f);
             if (Auxbala != null)
             {
-                Destroy(Auxbala, 2f);
+                Destroy(Auxbala, 1.2f);
+            }
+        }
+    }
+
+    private void disparoMiado()
+    {
+        if (posibleDisparo && (Victoria1 != null))
+        {
+            miraTemporal = Instantiate(mirilla, mirilla.transform.position, Quaternion.identity);
+            centroTemporal = Instantiate(centro, centro.transform.position, Quaternion.identity);
+            direccionDisparo = centroTemporal.transform.position;
+            StartCoroutine(Disparando());
+            Rodrigo = (direccionDisparo - miraTemporal.transform.position).normalized * Time.deltaTime * fuerza;
+            bala1.Farias = Rodrigo;
+            bala2.Farias = Rodrigo;
+            bala3.Farias = Rodrigo;
+            bala4.Farias = Rodrigo;
+            bala5.Farias = Rodrigo;
+            bala1.velocidad = 0.08f;
+            bala2.velocidad = 0.08f;
+            bala3.velocidad = 0.08f;
+            bala4.velocidad = 0.08f;
+            bala5.velocidad = 0.08f;
+            Auxbala = Instantiate(balas[sistemaGuardado.partida.iterador], miraTemporal.transform.position, Quaternion.identity);
+            Auxbala.transform.SetParent(miraTemporal.transform);
+            Auxbala.transform.rotation = centro.transform.rotation;
+            Auxbala.transform.localScale = new Vector3(5f, 5f, 5f);
+            disparando = true;
+
+            //SonidosBajo.Instance.ejecutarSonido(NotasBajo[sistemaGuardado.partida.iterador, metronomo.Acorde]);
+
+            Destroy(miraTemporal, 2f);
+            Destroy(centroTemporal, 2f);
+            if (Auxbala != null)
+            {
+                Destroy(Auxbala, 1f);
             }
         }
     }
     IEnumerator Disparando()
     {
         posibleDisparo = false;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.35f);
         posibleDisparo = true;
     }
 }

@@ -10,7 +10,7 @@ public class Pisar : MonoBehaviour
     public float tiempoAterrizaje = 0.3f;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Suelo"))
+        if (collision.gameObject.CompareTag("Suelo") || collision.gameObject.CompareTag("Bloques"))
         {
             input.puedeSaltar = true;
             input.segundoSalto = true;
@@ -19,20 +19,12 @@ public class Pisar : MonoBehaviour
                 animator.SetBool("Piso", true);
                 animator.SetBool("Jumping", false);
                 animator.SetBool("SegundoSalto", false);
-                input.piernasQuietas.enabled = true;
             }
         }
-        if (collision.gameObject.CompareTag("enemy"))
+        if (collision.gameObject.CompareTag("enemy") || collision.gameObject.CompareTag("pinchos"))
         {
             input.puedeSaltar = true;
             input.segundoSalto = true;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Suelo"))
-        {
-            input.piernasQuietas.enabled = false;
         }
     }
 }

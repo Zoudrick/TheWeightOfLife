@@ -13,7 +13,7 @@ public class Bolitas : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.left * velocidadBolita);
+        transform.Translate(Vector3.left * velocidadBolita * Time.deltaTime);
     }
     private void Awake()
     {

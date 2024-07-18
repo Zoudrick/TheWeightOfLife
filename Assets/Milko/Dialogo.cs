@@ -5,14 +5,13 @@ using UnityEngine.InputSystem;
 
 public class Dialogo : MonoBehaviour
 {
-
     [SerializeField, TextArea(4, 6)] private string[] LineasdeDialogo;
 
     [SerializeField] private GameObject Panel;
 
     [SerializeField] private TMP_Text TextodelDialogo;
 
-    [SerializeField] private GameObject MarcadeDialogo;
+    //[SerializeField] private GameObject MarcadeDialogo;
 
     private float TypingTime = 0.05f;
 
@@ -26,7 +25,7 @@ public class Dialogo : MonoBehaviour
 
     private void Update()
     {
-        if (Rangojugador && (Hablado == false || (Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame) || Input.GetKeyDown(KeyCode.Space)))
+        if (Rangojugador && (Hablado == false || Input.GetKeyDown(KeyCode.L)))
         {
             if (!IniciaelDialogo)
             {
@@ -49,9 +48,8 @@ public class Dialogo : MonoBehaviour
     {
         IniciaelDialogo = true;
         Panel.SetActive(true);
-        MarcadeDialogo.SetActive(false);
+        //MarcadeDialogo.SetActive(false);
         LineadeTexto = 0;
-        Time.timeScale = 0;
         StartCoroutine(MostrarLinea());
     }
 
@@ -67,8 +65,7 @@ public class Dialogo : MonoBehaviour
         {
             IniciaelDialogo = false;
             Panel.SetActive(false);
-            MarcadeDialogo.SetActive(true);
-            Time.timeScale = 1;
+            //MarcadeDialogo.SetActive(true);
         }
     }
 
@@ -86,22 +83,20 @@ public class Dialogo : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Bavi"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             Rangojugador = true;
-            MarcadeDialogo.SetActive(true);
+            //MarcadeDialogo.SetActive(true);
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public void desactivarDialogo()
     {
-        if (collision.gameObject.CompareTag("Bavi"))
-        {
-            Rangojugador = false;
-            Debug.Log("Sí funciona");
-            MarcadeDialogo.SetActive(false);
-            Destroy(gameObject);
-        }
+        Rangojugador = false;
+        Debug.Log("Sí funciona");
+        //MarcadeDialogo.SetActive(false);
+        Destroy(gameObject);
+        IniciaelDialogo = false;
+        Panel.SetActive(false);
     }
-
 }

@@ -79,25 +79,31 @@ public class VidasEnemigo : MonoBehaviour
         }
         else if (collision.CompareTag("GOverdrive"))
         {
-            vidas = vidas - 90;
+            vidas = vidas - 250;
             Debug.Log(vidas);
             StartCoroutine(retroalimentar());
         }
         else if (collision.CompareTag("GDistortion"))
         {
-            vidas = vidas - 80;
+            vidas = vidas - 210;
             Debug.Log(vidas);
             StartCoroutine(retroalimentar());
         }
         else if (collision.CompareTag("GChorus1"))
         {
-            vidas = vidas - 35;
+            vidas = vidas - 100;
+            Debug.Log(vidas);
+            StartCoroutine(retroalimentar());
+        }
+        else if (collision.CompareTag("GChorus2"))
+        {
+            vidas = vidas - 50;
             Debug.Log(vidas);
             StartCoroutine(retroalimentar());
         }
         else if (collision.CompareTag("GReverb"))
         {
-            vidas = vidas - 40;
+            vidas = vidas - 120;
             Debug.Log(vidas);
             StartCoroutine(retroalimentar());
         }

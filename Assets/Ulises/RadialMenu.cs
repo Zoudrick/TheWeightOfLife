@@ -128,6 +128,10 @@ public class RadialMenu : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         PuntoCamara.transform.position = VictoriaBajo.transform.position;
         Debug.Log("Sí se hizo");
+        yield return new WaitForSeconds(0.1f);
+        arma.voltearDerecha();
+        yield return new WaitForSeconds(0.1f);
+        arma.Guitarra.transform.localScale = arma.guitarraDerecha;
         yield return new WaitForSeconds(1.5f);
         puedeCambiar = true;
     }

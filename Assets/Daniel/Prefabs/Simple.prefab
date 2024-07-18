@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6592904923270359987}
   - component: {fileID: 3679505318371942463}
   - component: {fileID: 9165431006900420988}
+  - component: {fileID: 8814745206025914148}
   m_Layer: 0
   m_Name: Simple
   m_TagString: Simple
@@ -134,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099f5d59b6d477f4b9cef778024be85b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Farias: {x: 0.5134545, y: 0.006040558, z: -0}
+  Farias: {x: 0.5096898, y: -0.1459102, z: -0}
 --- !u!50 &9165431006900420988
 Rigidbody2D:
   serializedVersion: 4
@@ -162,3 +163,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8814745206025914148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3124999464001089986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d10f885e49beb0d49b1fb3de6ccaf3ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

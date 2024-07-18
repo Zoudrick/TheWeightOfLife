@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8791568802151308888}
   - component: {fileID: 3467806374195352468}
   - component: {fileID: 6819192833573430802}
+  - component: {fileID: 7800280469239466990}
   m_Layer: 0
   m_Name: Reverb (3)
   m_TagString: Reverb3
@@ -120,6 +121,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.00000011920929}
   serializedVersion: 2
   m_Radius: 0.07999999
+--- !u!114 &7800280469239466990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3341125883836669640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d10f885e49beb0d49b1fb3de6ccaf3ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5013275036008046220
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,6 +146,7 @@ GameObject:
   - component: {fileID: 4741887104177551009}
   - component: {fileID: 4828905459035140645}
   - component: {fileID: 2218499324150987559}
+  - component: {fileID: 5632499804213760285}
   m_Layer: 0
   m_Name: Reverb
   m_TagString: Reverb
@@ -283,7 +297,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099f5d59b6d477f4b9cef778024be85b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Farias: {x: 0.4988467, y: 0.13889475, z: -0}
+  Farias: {x: 0.5096898, y: -0.1459102, z: -0}
+--- !u!114 &5632499804213760285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5013275036008046220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d10f885e49beb0d49b1fb3de6ccaf3ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8230489752122784364
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,6 +321,7 @@ GameObject:
   - component: {fileID: 5594574888614736752}
   - component: {fileID: 9163442632779891989}
   - component: {fileID: 1483060665188379136}
+  - component: {fileID: 5328248356818137318}
   m_Layer: 0
   m_Name: Reverb (2)
   m_TagString: Reverb2
@@ -404,3 +431,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.00000011920929}
   serializedVersion: 2
   m_Radius: 0.07999999
+--- !u!114 &5328248356818137318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8230489752122784364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d10f885e49beb0d49b1fb3de6ccaf3ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

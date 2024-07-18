@@ -9,12 +9,11 @@ using UnityEngine.UIElements;
 
 public class RotarArma : MonoBehaviour
 {
-
+    public float HorizontalAxis;
     public float offset = -30;
     public float rango = 110;
 
     public JugadorInput input;
-
     public GameObject Victoria1;
 
     //Funcionamiento del arma
@@ -28,7 +27,6 @@ public class RotarArma : MonoBehaviour
     [Header("Puntos de rotación")]
     //Distintos puntos de rotación
     public GameObject arma;
-    public GameObject falda;
     public GameObject cuerpo;
     public GameObject anclaBrazo;
 
@@ -48,10 +46,6 @@ public class RotarArma : MonoBehaviour
     public bool izquierda;
 
     [Header("Cambiar jerarquía")]
-    //Sprites para el cambio de jerarquía
-    public SpriteRenderer spriteCara;
-    public SpriteRenderer spriteTorzo;
-    public SpriteRenderer spriteCabello;
     public SpriteRenderer spriteGuitarra;
 
     [Header("Cambio de orientación")]
@@ -62,10 +56,7 @@ public class RotarArma : MonoBehaviour
 
     [Header("Animaciones")]
     //Animaiones
-    [SerializeField] Animator animCabeza;
-    [SerializeField] Animator animCabello;
     [SerializeField] Animator animTorzo;
-    [SerializeField] Animator animPiernas;
     [SerializeField] Animator animFalda;
     [SerializeField] Animator animGuitarra;
 
@@ -89,18 +80,16 @@ public class RotarArma : MonoBehaviour
         {
             arma.transform.localScale = new Vector3(-1, 1, 1);
             cuerpo.transform.localScale = new Vector3(-1, 1, 1);
-            falda.transform.localScale = new Vector3(-1, 1, 1);
         }
         else
         {
             arma.transform.localScale = new Vector3(1, 1, 1);
             cuerpo.transform.localScale = new Vector3(1, 1, 1);
-            falda.transform.localScale = new Vector3(1, 1, 1);
         }
     }
     public void Gun(InputAction.CallbackContext context)
     {
-        float HorizontalAxis = context.ReadValue<Vector2>().x;
+        HorizontalAxis = context.ReadValue<Vector2>().x;
         float VerticalAxis = context.ReadValue<Vector2>().y * input.orientationY;
         //Arma
         arma.transform.localEulerAngles = new Vector3(0f, 0f, Mathf.Atan2(HorizontalAxis, VerticalAxis) * -180 / Mathf.PI + 90f);
@@ -109,7 +98,6 @@ public class RotarArma : MonoBehaviour
         {
             //cuerpo.transform.localEulerAngles = new Vector3(0f, 0f, -1 * (offset + Mathf.Atan2(HorizontalAxis, VerticalAxis) * rango / Mathf.PI + 90f));
             cuerpo.transform.localEulerAngles = new Vector3(0f, 0f, -1 * (-30 + Mathf.Atan2(HorizontalAxis, VerticalAxis) * 110/ Mathf.PI + 90f));
-            falda.transform.localEulerAngles = new Vector3(0f, 0f, -1 * (-70 + Mathf.Atan2(HorizontalAxis, VerticalAxis) * 24 / Mathf.PI + 90f));
             voltearIzquierda();
             izquierda = true;
             Guitarra.transform.localScale = guitarraIzquierda;
@@ -118,8 +106,6 @@ public class RotarArma : MonoBehaviour
         {
             izquierda = false;
             cuerpo.transform.localEulerAngles = new Vector3(0f, 0f, offset + Mathf.Atan2(HorizontalAxis, VerticalAxis) * -rango / Mathf.PI + 90f);
-            //cuerpo.transform.localEulerAngles = new Vector3(0f, 0f, -40 + Mathf.Atan2(HorizontalAxis, VerticalAxis) * -110 / Mathf.PI + 90f);
-            falda.transform.localEulerAngles = new Vector3(0f, 0f, -75 + Mathf.Atan2(HorizontalAxis, VerticalAxis) * -15 / Mathf.PI + 90f);
             voltearDerecha();
         }
 
@@ -130,13 +116,11 @@ public class RotarArma : MonoBehaviour
             quieto = true;
 
             arma.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
-            falda.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
             cuerpo.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
 
             if (izquierda)
             {
                 gOTorzo.transform.localScale = torzoIzquierda;
-                gOFalda.transform.localScale = faldaIzquierda;
                 Guitarra.transform.localScale = guitarraIzquierda;
             }
 
@@ -144,7 +128,6 @@ public class RotarArma : MonoBehaviour
             {
                 arma.transform.localScale = new Vector3(-1, 1, 1);
                 cuerpo.transform.localScale = new Vector3(-1, 1, 1);
-                falda.transform.localScale = new Vector3(-1, 1, 1);
             }
         }
         else
@@ -158,42 +141,22 @@ public class RotarArma : MonoBehaviour
 
     public void voltearIzquierda()
     {
-        if(Victoria1 != null)
-        {
-            animCabeza.SetBool("izquierda", true);
-            animCabello.SetBool("izquierda", true);
-            animTorzo.SetBool("izquierda", true);
-            animPiernas.SetBool("izquierda", true);
-            animFalda.SetBool("izquierda", true);
-            animGuitarra.SetBool("izquierda", true);
-        }
-        
-        spriteCara.sortingOrder = 24;
-        spriteTorzo.sortingOrder = 20;
-        spriteGuitarra.sortingOrder = 18;
-        spriteCabello.sortingOrder = 30;
+        animTorzo.SetBool("izquierda", true);
+        animFalda.SetBool("izquierda", true);
+        animGuitarra.SetBool("izquierda", true);
         brazoDerecha.enabled = false;
         brazoIzquierda.enabled = true;
         brazoIzquierda2.enabled = true;
+        spriteGuitarra.sortingOrder = 18;
     }
     public void voltearDerecha()
     {
-        if(Victoria1 != null)
-        {
-            animCabeza.SetBool("izquierda", false);
-            animCabello.SetBool("izquierda", false);
-            animTorzo.SetBool("izquierda", false);
-            animPiernas.SetBool("izquierda", false);
-            animFalda.SetBool("izquierda", false);
-            animGuitarra.SetBool("izquierda", false);
-        }
-        spriteCabello.sortingOrder = 18;
-        spriteCara.sortingOrder = 20;
-        spriteTorzo.sortingOrder = 21;
-        spriteGuitarra.sortingOrder = 26;
-
+        animTorzo.SetBool("izquierda", false);
+        animFalda.SetBool("izquierda", false);
+        animGuitarra.SetBool("izquierda", false);
         brazoDerecha.enabled = true;
         brazoIzquierda.enabled = false;
         brazoIzquierda2.enabled = false;
+        spriteGuitarra.sortingOrder = 25;
     }
 }

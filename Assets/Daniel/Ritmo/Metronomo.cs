@@ -41,12 +41,15 @@ public class Metronomo : MonoBehaviour
     public bool autorizo2;
 
     private bool Golpeo;
+
+    public int Acorde;
     private void Awake()
     {
         ritmo = segundos / bPM;
         ritmo = ritmo - offset;
         StartCoroutine(DelayMusica());
         autorizo = false;
+        Acorde = 0;
     }
 
     private void FixedUpdate()
@@ -76,10 +79,10 @@ public class Metronomo : MonoBehaviour
             Destroy(bolita2);
             Destroy(bolita2b);
         }
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         autorizo = false;
         transform.localScale = new Vector3(1, 1, 1);
-        yield return new WaitForSeconds(ritmo - 0.1f);
+        yield return new WaitForSeconds(ritmo - 0.2f);
 
 
         //Segunda Toma
@@ -99,11 +102,11 @@ public class Metronomo : MonoBehaviour
             Destroy(bolita3);
             Destroy(bolita3b);
         }
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         autorizo = false;
         autorizo2 = false;
         transform.localScale = new Vector3(1, 1, 1);
-        yield return new WaitForSeconds(ritmo - 0.1f);
+        yield return new WaitForSeconds(ritmo - 0.2f);
 
 
         //Tercer toma
@@ -122,10 +125,10 @@ public class Metronomo : MonoBehaviour
             Destroy(bolita4);
             Destroy(bolita4b);
         }
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         autorizo = false;
         transform.localScale = new Vector3(1, 1, 1);
-        yield return new WaitForSeconds(ritmo - 0.1f);
+        yield return new WaitForSeconds(ritmo - 0.2f);
 
         //Cuarta toma
         bolita4 = Instantiate(bolitaDerecha1);
@@ -141,12 +144,22 @@ public class Metronomo : MonoBehaviour
         autorizo2 = true;
         Destroy(bolita1);
         Destroy(bolita1b);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         autorizo = false;
         autorizo2 = false;
         transform.localScale = new Vector3(1, 1, 1);
-        yield return new WaitForSeconds(ritmo - 0.1f);
+        yield return new WaitForSeconds(ritmo - 0.2f);
         Golpeo = true;
+
+        if (Acorde < 3)
+        {
+            Acorde = Acorde + 1;
+            Debug.Log(Acorde);
+        }
+        else
+        {
+            Acorde = 0;
+        }
     }
     private IEnumerator DelayMusica()
     {

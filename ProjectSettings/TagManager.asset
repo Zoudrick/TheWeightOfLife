@@ -28,6 +28,9 @@ TagManager:
   - ActPedal4
   - ActMicrofono
   - Gravedad
+  - Bloques
+  - pinchos
+  - GChorus2
   layers:
   - Default
   - TransparentFX

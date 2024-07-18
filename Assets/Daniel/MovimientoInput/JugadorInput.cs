@@ -141,6 +141,7 @@ public class JugadorInput : MonoBehaviour
         if (_dashing)
         {
             transform.Translate(Vector3.right * horizontal * _dashForce * 2 * Time.deltaTime);
+            rb.velocity = new Vector3(0, 0, 0);
         }
 
         if (moviendoC)
@@ -221,9 +222,11 @@ public class JugadorInput : MonoBehaviour
     private IEnumerator ActionDash()
     {
         _canDash = false;
+        rb.gravityScale = rb.gravityScale * 0.01f;
         _dashing = true;
         yield return new WaitForSeconds(_dashingTime);
         _dashing = false;
+        rb.gravityScale *= 100;
         yield return new WaitForSeconds(_timeCanDash);
         _canDash = true;
     }

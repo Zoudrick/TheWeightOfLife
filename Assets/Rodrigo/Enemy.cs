@@ -6,8 +6,8 @@ public class Enemy : MonoBehaviour
 {
     public bool IsImmune { get; private set; } = false;
     public float fuerzaPutazo = 85;
-
-    private void OnCollisionEnter2D(Collision2D other)
+    public float fuerzaPinchos = 85;
+    private void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("enemy") && !IsImmune)
         {
@@ -17,24 +17,50 @@ public class Enemy : MonoBehaviour
 
             if (playerRigidbody != null)
             {
-                Vector2 collisionDirection = (transform.position - other.transform.position).normalized;
-
-                playerRigidbody.AddForce(collisionDirection * fuerzaPutazo * fuerzaPutazo);
+                if(transform.position.x < other.transform.position.x)
+                {
+                    playerRigidbody.AddForce(new Vector2(-(fuerzaPutazo * fuerzaPutazo),0));
+                }
+                else
+                {
+                    playerRigidbody.AddForce(new Vector2(fuerzaPutazo * fuerzaPutazo, 0));
+                }
             }
 
-            StartImmunity();
+            StartCoroutine(ImmunityCoroutine());
         }
     }
 
-    public void StartImmunity()
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        StartCoroutine(ImmunityCoroutine());
+        if (other.gameObject.CompareTag("pinchos"))
+        {
+            GameManager.Instance.perderVida();
+
+            Rigidbody2D playerRigidbody = GetComponent<Rigidbody2D>();
+
+            if (playerRigidbody != null)
+            {
+                ContactPoint2D contact = other.contacts[0];
+
+                if (transform.position.y < contact.point.y)
+                {
+                    playerRigidbody.AddForce(new Vector2(0, -(fuerzaPutazo * fuerzaPutazo * 0.5f)));
+                }
+                else
+                {
+                    playerRigidbody.AddForce(new Vector2(0, fuerzaPutazo * fuerzaPutazo * fuerzaPinchos));
+                }
+            }
+
+            StartCoroutine(ImmunityCoroutine());
+        }
     }
 
     private IEnumerator ImmunityCoroutine()
     {
         IsImmune = true;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         IsImmune = false;
     }
 }
